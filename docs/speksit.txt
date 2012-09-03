@@ -1,0 +1,12 @@
+
+1. Tarkka ratkaisu (valitulla tavalla, branch-and-bound)
+- max. 20 paikkaa
+- min. 2-3 paikkaa
+
+2. Approximaatio kahdella tavalla (Prim, Dijkstra)
+- vertailu tarkkaan ratkaisuun
+
+3. M‰‰rittelydokumentti
+- Viikko 1
+
+
