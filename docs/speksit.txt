@@ -1,12 +1,30 @@
+Traveling Salesman 
 
 1. Tarkka ratkaisu (valitulla tavalla, branch-and-bound)
-- max. 20 paikkaa
-- min. 2-3 paikkaa
+- max. 20 solmua
+- min. 3 solmua (mukaanlukien lähtösolmu)
+- Ratkaisutapa branch-and-bound
 
-2. Approximaatio kahdella tavalla (Prim, Dijkstra)
+2. Approximaatiot 
 - vertailu tarkkaan ratkaisuun
+	- sekä aika-, tila- että oikeellisuusvertailu
 
-3. Määrittelydokumentti
-- Viikko 1
+2.1 Primin algoritmin toteutus, jossa viimeisen solmun jälkeen palataan ensimmäiseen solmuun
+	- Primin algoritmi luo verkon pienimmän virittävän puun, jonka jälkeen palataan lähteeseen
+
+2.2 Dijkstra: 
+	- Miten? 
+	- Dijkstra hakee verkon lyhimmän reitin. 
+	- Ilmeisesti sama kuin edellisessä eli etsitään verkon lyhin polku, jonka jälkeen palataan alkupisteeseen
+
+3. Aikataulu
+- Määrittelydokumentti: Viikko 1
 
 
+
+
+Mitä algoritmeja ja tietorakenteita toteutat työssäsi
+Mitä ongelmaa ratkaiset ja miksi valitsit kyseiset algoritmit/tietorakenteet
+Mitä syötteitä ohjelma saa ja miten näitä käytetään
+Tavoitteena olevat aika- ja tilavaativuudet (m.m. O-analyysi)
+Lähteet
