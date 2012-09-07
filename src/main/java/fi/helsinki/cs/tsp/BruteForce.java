@@ -8,70 +8,47 @@ package fi.helsinki.cs.tsp;
  *
  * @author tesuomin
  */
-public class BranchAndBound {
+public class BruteForce {
     
     private int[][] tsp;
     private boolean[] visited;
-    //private int max = Integer.MAX_VALUE;
-    //private int[] bestRoute;
-    private TSPResultHandler resultHandler;
     
-    public BranchAndBound(int[][] tsp) {
+    public BruteForce(int[][] tsp) {
         this.tsp = tsp;
-        resultHandler = new TSPResultHandler(tsp);
         visited = new boolean[tsp.length];
-        visited[0] = true;
-        //bestRoute = new int[tsp.length];
     }
     
-    public TSPResultHandler calculateBestRoute() {
-        generate(Integer.MAX_VALUE, 0, visited, 0, 0, new int[tsp.length]);
-        return resultHandler;
+    public int calculateBestRoute() {
+        return generate(Integer.MAX_VALUE, 0, visited, 0, 0);
     }
     
     public void calculateBestRoute2() {
         generate2(new int[tsp.length], 0, visited, 0, 0);
     }
     
-    public int generate(int best, int length, boolean[] _visited, int current, int k, int[] route) {
-        //System.out.println("i3:"+current+", k3:"+k);
+    public int generate(int best, int length, boolean[] _visited, int current, int k) {
+        System.out.println("i3:"+current+", k3:"+k);
         if (k == tsp.length-1) {
-            //System.out.println("newp2:"+(length+tsp[current][0])+", current:"+current);
+            System.out.println("newp2:"+(length+tsp[current][0])+", current:"+current);
             return length+tsp[current][0];
         }
-        
-        int[] bestRoute = new int[tsp.length];
+        int max = 1000;
         for (int i=0;i<tsp.length;i++) {
             if (!_visited[i]) {
                 boolean[] visited2 = luoKopio(_visited);
                 visited2[i] = true;
-                if (length+tsp[current][i] < best) {
-                    //System.out.println("i2:"+i+", k2:"+k);
-                    route[k] = i;
-                    int newp = generate(best,length+tsp[current][i],visited2,i,k+1,route);
-                    //System.out.println("newp:"+newp+", i:"+i+", k:"+k);
-                    if (newp < resultHandler.getMinimumRouteLength()) {
-                        resultHandler.setMinimumRouteLength(newp);
-                        resultHandler.setBestRoute(luoKopio(route));
-                        bestRoute = route;
-                        //System.out.println("New best length: "+newp);
-                        //System.out.println("New best route: "+printRoute(bestRoute));
-                    }
-                    if (newp < best) {
+                if (length+tsp[current][i]< best) {
+                    System.out.println("i2:"+i+", k2:"+k);
+                    int newp = generate(best,length+tsp[current][i],visited2,i,k+1);
+                    System.out.println("newp:"+newp+", i:"+i+", k:"+k);
+                    if (newp < max) 
+                        max = newp;
+                    if (newp < best) 
                         best = newp;
-                    }
                 }
             }
         }
-        return resultHandler.getMinimumRouteLength();
-    }
-    
-    public String printRoute(int[] route) {
-        String s = "0:";
-        for (int i=0; i<route.length; i++) {
-            s += route[i]+":";
-        }
-        return s.substring(0, s.length()-1);
+        return max;
     }
     
     public void generate2(int[] table, int length, boolean[] _visited, int current, int k) {
@@ -92,14 +69,6 @@ public class BranchAndBound {
     
     private boolean[] luoKopio(boolean[] v) {
         boolean[] v2 = new boolean[v.length];
-        for (int i=0; i<v.length;i++) {
-            v2[i] = v[i];
-        }
-        return v2;
-    }
-    
-    private int[] luoKopio(int[] v) {
-        int[] v2 = new int[v.length];
         for (int i=0; i<v.length;i++) {
             v2[i] = v[i];
         }
