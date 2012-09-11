@@ -7,7 +7,8 @@ package fi.helsinki.cs.tsp;
 import java.util.Random;
 
 /**
- *
+ * Support class which constructs n*n matrix consisting of random numbers between 1-100. 
+ * 
  * @author tesuomin
  */
 public class MatrixFactory {
@@ -18,6 +19,7 @@ public class MatrixFactory {
         fillPoints();
     }
     
+    //Fills an array with 1000 random numbers between 1-100. This array is used to construct random graphs
     private void fillPoints() {
         Random randomGenerator = new Random();
         for (int i= 0; i < 1000; ++i){
@@ -26,21 +28,29 @@ public class MatrixFactory {
         }
     }
     
+    /**
+     * Method which constructs n*n matrix filled with random numbers. Matrix entry [i][i] 
+     * (ie. [1][1], [2][2], [3][3],...) will be 0. 
+     * 
+     * @param size Size of the matrix this method constructs. In n*n matrix, size would be n.
+     * @return Matrix filled with random numbers between 1-100. 
+     */
     public int[][] createMatrix(int size) {
-        int[][] tsp = new int[size][size];
-        tsp = addMaxValues(tsp, size);
-        int marker = 10;
+        int[][] graph = new int[size][size];
+        graph = addMinValues(graph, size);
+        int marker = 1;
         for (int i=0; i<size; i++) {
             for (int j=i+1; j<size; j++) {
-                tsp[i][j] = points[marker];
-                tsp[j][i] = points[marker];
+                graph[i][j] = points[marker];
+                graph[j][i] = points[marker];
                 marker++;
             }
         }
-        return tsp;
+        return graph;
     }
     
-    private int[][] addMaxValues(int[][] tsp, int length) {
+    //Adds 0 to an entry where indexes are same (ie. [1][1], [2][2], [3][3],...)
+    private int[][] addMinValues(int[][] tsp, int length) {
         for (int i=0; i<length; i++) {
             tsp[i][i] = 0;
         }

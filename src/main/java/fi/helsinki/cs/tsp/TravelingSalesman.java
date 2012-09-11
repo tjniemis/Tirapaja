@@ -24,9 +24,9 @@ public class TravelingSalesman {
         return trh;
     }
     
-    public void calculateWithBruteForce() {
-        BranchAndBound bb = new BranchAndBound(tsp);
-        bb.calculateBestRoute2();
+    public TSPResultHandler calculateWithBruteForce() {
+        BruteForce bf = new BruteForce(tsp);
+        return bf.calculateBestRoute();
     }
     
 }
