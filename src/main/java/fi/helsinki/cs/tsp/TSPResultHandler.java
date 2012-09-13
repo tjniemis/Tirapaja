@@ -58,7 +58,8 @@ public class TSPResultHandler {
      * separated by colons.
      */
     public String printBestRoute() {
-        String s = "0:";
+        String s = "";
+        if (bestRoute[0] != 0) s = "0:";
         for (int i=0; i<getBestRoute().length; i++) {
             s += getBestRoute()[i]+":";
         }

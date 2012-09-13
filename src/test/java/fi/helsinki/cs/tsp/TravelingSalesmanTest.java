@@ -16,8 +16,8 @@ import static org.junit.Assert.assertTrue;
 public class TravelingSalesmanTest {
     
     @Test
-    public void testBranchAndBound_And_BruteForce5() {
-        TravelingSalesman ts = new TravelingSalesman(5);
+    public void testBranchAndBound_And_BruteForce20() {
+        TravelingSalesman ts = new TravelingSalesman(20);
         
         long start = System.currentTimeMillis();
         TSPResultHandler trh = ts.calculateWithBranchAndBound();
@@ -25,14 +25,31 @@ public class TravelingSalesmanTest {
         System.out.println("Branch-and-bound duration: "+(end-start));
         System.out.println("BranchAndBound Best route length: "+trh.getMinimumRouteLength());
         System.out.println("BranchAndBound Best route: "+trh.printBestRoute());
+        System.out.println("");
         
-        start = System.currentTimeMillis();
-        trh = ts.calculateWithBruteForceAndShowAllRoutes();
+        /*start = System.currentTimeMillis();
+        trh = ts.calculateWithBruteForce();
         end = System.currentTimeMillis();
         System.out.println("BruteForce duration: "+(end-start));
         System.out.println("BruteForce Best route length: "+trh.getMinimumRouteLength());
         System.out.println("BruteForce Best route: "+trh.printBestRoute());
-        TSPStack stack = trh.getAllRoutes();
+        System.out.println("");*/
+        
+        start = System.currentTimeMillis();
+        trh = ts.approximateWithPrim();
+        end = System.currentTimeMillis();
+        System.out.println("Prim duration: "+(end-start));
+        System.out.println("Prim Best route length: "+trh.getMinimumRouteLength());
+        System.out.println("Prim Best route: "+trh.printBestRoute());
+        System.out.println("");
+        start = System.currentTimeMillis();
+        trh = ts.approximateWithPrim2();
+        end = System.currentTimeMillis();
+        System.out.println("Prim2 duration: "+(end-start));
+        System.out.println("Prim2 Best route length: "+trh.getMinimumRouteLength());
+        System.out.println("Prim2 Best route: "+trh.printBestRoute());
+        System.out.println("");
+        /*TSPStack stack = trh.getAllRoutes();
         System.out.println("\nNow printing all other routes("+stack.getStackSize()+")...\n");
         
         int i = 1;
@@ -41,11 +58,11 @@ public class TravelingSalesmanTest {
             System.out.println("Route "+i+": "+route.printRoute());
             System.out.println("Route "+i+" distance: "+route.getDistance());
             i++;
-        }
+        }*/
         assertTrue(true);
     }
     
-    @Test
+    /*@Test
     public void testBranchAndBound_And_BruteForce12() {
         TravelingSalesman ts = new TravelingSalesman(12);
         
@@ -63,6 +80,18 @@ public class TravelingSalesmanTest {
         System.out.println("BruteForce Best route length: "+trh.getMinimumRouteLength());
         System.out.println("BruteForce Best route: "+trh.printBestRoute());
         assertTrue(true);
-    }
+    }*/
+    
+    /*@Test
+    public void testBranchAndBound_And_BruteForce18() {
+        TravelingSalesman ts = new TravelingSalesman(18);
+        
+        long start = System.currentTimeMillis();
+        TSPResultHandler trh = ts.calculateWithBranchAndBound();
+        long end = System.currentTimeMillis();
+        System.out.println("Branch-and-bound duration: "+(end-start));
+        System.out.println("BranchAndBound Best route length: "+trh.getMinimumRouteLength());
+        System.out.println("BranchAndBound Best route: "+trh.printBestRoute());
+    }*/
 
 }

@@ -4,6 +4,9 @@
  */
 package fi.helsinki.cs.tsp;
 
+import fi.helsinki.cs.tsp.approx.Prim;
+import fi.helsinki.cs.tsp.utils.DepthFirstSearch;
+
 /**
  * Traveling Salesman class. 
  * 
@@ -55,6 +58,32 @@ public class TravelingSalesman {
     public TSPResultHandler calculateWithBruteForceAndShowAllRoutes() {
         BruteForce bf = new BruteForce(tsp);
         return bf.calculateBestRouteAndSaveAllRoutes();
+    }
+    
+    public TSPResultHandler approximateWithPrim() {
+        Prim prim = new Prim(tsp);
+        prim.createMinimumSpanningTree();
+        int[][] minTree = prim.getTreeGraph();
+        DepthFirstSearch dfs = new DepthFirstSearch(minTree);
+        int[] nodes = dfs.visitAll();
+        int distance = 0;
+        for (int i=0; i<nodes.length-2; i++) {
+            distance += tsp[i][i+1];
+        }
+        distance += tsp[nodes.length-2][0];
+        TSPResultHandler trh = new TSPResultHandler(tsp);
+        trh.setBestRoute(nodes);
+        trh.setMinimumRouteLength(distance);
+        return trh;
+    }
+    
+    public TSPResultHandler approximateWithPrim2() {
+        Prim prim = new Prim(tsp);
+        prim.createMinimumSpanningTree();
+        int[][] minTree = prim.getTreeGraph();
+        DepthFirstSearch dfs = new DepthFirstSearch(minTree);
+        TSPResultHandler trh = dfs.visitAll2(prim.getNodesInTreeAsStack(), tsp);
+        return trh;
     }
     
 }
