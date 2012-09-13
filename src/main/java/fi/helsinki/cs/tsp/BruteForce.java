@@ -34,20 +34,55 @@ public class BruteForce extends AbstractSolution {
         return resultHandler;
     }
     
-    private int generate(int length, boolean[] _visited, int current, int k, int[] route) {
-        if (k == tsp.length-1) {
-            return length+tsp[current][0];
+    /**
+     * Calculates best possible route and stores all routes. Note that maximum number of locations for this 
+     * method is 10, at 11 it throws OutOfMemoryError.
+     * 
+     * @return Resulthandler object which contains information about calculated routes. 
+     */
+    public TSPResultHandler calculateBestRouteAndSaveAllRoutes() {
+        boolean[] visited = new boolean[tsp.length];
+        visited[0] = true;
+        generateAndStoreAllRoutes(0, visited, 0, 0, new int[tsp.length]);
+        return resultHandler;
+    }
+    
+    private int generate(int lengthSoFar, boolean[] _visited, int currentIndex, int counter, int[] route) {
+        if (counter == tsp.length-1) {
+            return lengthSoFar+tsp[currentIndex][0];
         }
-        for (int i=0;i<tsp.length;i++) {
+        for (int i=1;i<tsp.length;i++) {
             if (!_visited[i]) {
                 boolean[] visited2 = luoKopio(_visited);
                 visited2[i] = true;
-                route[k] = i;
-                int newp = generate(length+tsp[current][i],visited2,i,k+1,route);
+                route[counter] = i;
+                int newp = generate(lengthSoFar+tsp[currentIndex][i],visited2,i,counter+1,route);
+                if (newp < resultHandler.getMinimumRouteLength()) {
+                    int[] kopioRoute = luoKopio(route);
+                    resultHandler.setMinimumRouteLength(newp);
+                    resultHandler.setBestRoute(kopioRoute);
+                }
+            }
+        }
+        return resultHandler.getMinimumRouteLength();
+    }
+    
+    private int generateAndStoreAllRoutes(int lengthSoFar, boolean[] _visited, int currentIndex, int counter, int[] route) {
+        if (counter == tsp.length-1) {
+            return lengthSoFar+tsp[currentIndex][0];
+        }
+        for (int i=1;i<tsp.length;i++) {
+            if (!_visited[i]) {
+                boolean[] visited2 = luoKopio(_visited);
+                visited2[i] = true;
+                route[counter] = i;
+                int newp = generateAndStoreAllRoutes(lengthSoFar+tsp[currentIndex][i],visited2,i,counter+1,route);
+                int[] kopioRoute = luoKopio(route);
                 if (newp < resultHandler.getMinimumRouteLength()) {
                     resultHandler.setMinimumRouteLength(newp);
-                    resultHandler.setBestRoute(luoKopio(route));
+                    resultHandler.setBestRoute(kopioRoute);
                 }
+                if (counter==tsp.length-2) resultHandler.addNewRoute(kopioRoute, newp);
             }
         }
         return resultHandler.getMinimumRouteLength();

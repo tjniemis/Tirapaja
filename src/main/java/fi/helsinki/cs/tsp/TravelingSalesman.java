@@ -38,11 +38,23 @@ public class TravelingSalesman {
     /**
      * Calculates solution using Brute Force technique.
      * 
-     * @return Reusulthandler object which has information about calculated routes
+     * @return Resulthandler object which has information about calculated routes
      */
     public TSPResultHandler calculateWithBruteForce() {
         BruteForce bf = new BruteForce(tsp);
         return bf.calculateBestRoute();
+    }
+    
+    /**
+     * Calculates solution using Brute Force technique. This method also stores all calculated routes. 
+     * Not to be used in calculations where number of locations is more than 10, otherwise you will get
+     * OutOfMemoryError.
+     * 
+     * @return Reusulthandler object which has information about calculated routes
+     */
+    public TSPResultHandler calculateWithBruteForceAndShowAllRoutes() {
+        BruteForce bf = new BruteForce(tsp);
+        return bf.calculateBestRouteAndSaveAllRoutes();
     }
     
 }
