@@ -5,16 +5,28 @@
 package fi.helsinki.cs.tsp;
 
 /**
- *
+ * Implementation class for Traveling Salesman's problem. This class solves the problem using 
+ * brute force, which means it calculates every single possible route. 
+ * 
  * @author tesuomin
  */
 public class BruteForce extends AbstractSolution {
     
+    /**
+     * Constructor with distance matrix given as parameter. 
+     * 
+     * @param tsp 
+     */
     public BruteForce(int[][] tsp) {
         this.tsp = tsp;
         resultHandler = new TSPResultHandler(tsp);
     }
     
+    /**
+     * Calculates best possible route. 
+     * 
+     * @return Resulthandler object which contains information about calculated routes. 
+     */
     public TSPResultHandler calculateBestRoute() {
         boolean[] visited = new boolean[tsp.length];
         visited[0] = true;
@@ -22,7 +34,7 @@ public class BruteForce extends AbstractSolution {
         return resultHandler;
     }
     
-    public int generate(int length, boolean[] _visited, int current, int k, int[] route) {
+    private int generate(int length, boolean[] _visited, int current, int k, int[] route) {
         if (k == tsp.length-1) {
             return length+tsp[current][0];
         }

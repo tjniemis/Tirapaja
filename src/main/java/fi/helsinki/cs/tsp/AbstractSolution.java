@@ -17,6 +17,13 @@ public abstract class AbstractSolution {
     protected TSPResultHandler resultHandler;
     
     /**
+     * Abstract method. Implementation in subclasses.
+     *  
+     * @return Resulthandler object containing information about the routes
+     */
+    public abstract TSPResultHandler calculateBestRoute();
+    
+    /**
      * Method for displaying route as String.
      * 
      * @param route Optimal route starting from starting locations(0) ending back to starting location (0)
@@ -29,7 +36,6 @@ public abstract class AbstractSolution {
         }
         return s.substring(0, s.length()-1);
     }
-    
     
     /**
      * Copies an array consisting of primitive boolean types

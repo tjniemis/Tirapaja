@@ -5,16 +5,29 @@
 package fi.helsinki.cs.tsp;
 
 /**
- *
+ * Implementation class for Traveling Salesman's problem. This class solves the problem using 
+ * branch and bound technique. 
+ * 
  * @author tesuomin
  */
 public class BranchAndBound extends AbstractSolution{
     
+    /**
+     * Constructor with distance matrix given as parameter. 
+     * 
+     * @param tsp 
+     */
     public BranchAndBound(int[][] tsp) {
         this.tsp = tsp;
         resultHandler = new TSPResultHandler(tsp);
     }
     
+    
+    /**
+     * Calculates best possible route. 
+     * 
+     * @return Resulthandler object which contains information about calculated routes. 
+     */
     public TSPResultHandler calculateBestRoute() {
         boolean[] visited = new boolean[tsp.length];
         visited[0] = true;
@@ -23,7 +36,7 @@ public class BranchAndBound extends AbstractSolution{
     }
     
     
-    public int generate(int best, int length, boolean[] _visited, int current, int k, int[] route) {
+    private int generate(int best, int length, boolean[] _visited, int current, int k, int[] route) {
         if (k == tsp.length-1) {
             return length+tsp[current][0];
         }

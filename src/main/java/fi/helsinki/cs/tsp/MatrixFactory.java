@@ -57,6 +57,11 @@ public class MatrixFactory {
         return tsp;
     }
     
+    /**
+     * Prints this n*n matrix
+     * 
+     * @param matrix Matrix to be printed.
+     */
     public void printMatrix(int[][] matrix) {
         for (int i=0; i<matrix.length; i++) {
             for (int j=0; j<matrix.length; j++) {
