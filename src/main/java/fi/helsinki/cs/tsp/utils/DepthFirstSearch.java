@@ -19,15 +19,16 @@ public class DepthFirstSearch {
     private int[][] graph;
     private int counter = 0;
     private TSPIntStack stack;
+    TSPResultHandler trh;
     
     public DepthFirstSearch(int[][] graph) {
         this.graph = graph;
         status = new int[graph.length];
         nodes = new int[graph.length+1];
+        trh = new TSPResultHandler();
     }
     
     public TSPResultHandler visitAll2(TSPIntStack stack, int[][] fullGraph) {
-        TSPResultHandler trh = new TSPResultHandler(fullGraph);
         this.stack = stack;
         int node1 = stack.pop();
         trh =  visit2(node1, fullGraph, trh);
@@ -40,22 +41,30 @@ public class DepthFirstSearch {
         while (!stack.empty()) {
             int end = stack.pop();
             distance += fullGraph[start][end];
-            //System.out.println("start: "+start+", end: "+end+", distance: "+distance);
             start = end;
             nodes[counter++] = start;
         }
         //Lopuksi vielä palataan alkupisteeseen
         distance += fullGraph[start][0];
-        //nodes[graph.length] = 0;
         trh.setBestRoute(nodes);
         trh.setMinimumRouteLength(distance);
         return trh;
     }
     
-    public int[] visitAll() {
+    public TSPResultHandler visitAll(int[][] fullGraph) {
         nodes =  visit(0);
-        nodes[graph.length] = 0;
-        return nodes;
+        nodes[graph.length] = 0; //Viimeinen piste on alkupiste
+        int distance = 0;
+        for (int i=0; i<graph.length; i++) {
+            int node1 = nodes[i];
+            int node2 = nodes[i+1];
+            distance += fullGraph[node1][node2];
+            //System.out.println("distance: "+distance+", i:"+node1+", i+1: "+node2);
+        }
+        trh = new TSPResultHandler();
+        trh.setBestRoute(nodes);
+        trh.setMinimumRouteLength(distance);
+        return trh;
     }
     
     public int[] visit(int index) {
@@ -63,17 +72,15 @@ public class DepthFirstSearch {
         nodes[counter++] = index;
         for (int i=0;i<graph.length;i++) {
             if (i!=index) { //Matkaa itseensä ei tutkita
-                //System.out.println("i: "+i+", index: "+index+", counter: "+counter);
                 if (graph[index][i] > 0) {
                     if (status[i]==0) { //Ei olla tutkittu
                         visit(i);
                     }
                 }
             }
-        }        
+        }
         return nodes;
     }
-    
     
     
 }

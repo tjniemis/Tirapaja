@@ -5,6 +5,7 @@
 package fi.helsinki.cs.tsp.approx;
 
 import fi.helsinki.cs.tsp.MatrixFactory;
+import fi.helsinki.cs.tsp.TSPResultHandler;
 import fi.helsinki.cs.tsp.utils.DepthFirstSearch;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -34,11 +35,7 @@ public class PrimTest {
         int[][] minTree = prim.getTreeGraph();
         mf.printMatrix(minTree);
         DepthFirstSearch dfs = new DepthFirstSearch(minTree);
-        int[] nodes = dfs.visitAll();
-        for (int i=0; i<nodes.length; i++) {
-            System.out.print(nodes[i]+":");
-            
-        }
+        TSPResultHandler trh = dfs.visitAll(graph);
         System.out.println("");
         assertTrue(true);
     }

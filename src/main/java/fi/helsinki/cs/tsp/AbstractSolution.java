@@ -13,7 +13,7 @@ package fi.helsinki.cs.tsp;
  */
 public abstract class AbstractSolution {
     
-    protected int[][] tsp;
+    protected int[][] graph;
     protected TSPResultHandler resultHandler;
     
     /**

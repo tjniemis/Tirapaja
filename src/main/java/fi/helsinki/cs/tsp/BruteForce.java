@@ -17,9 +17,9 @@ public class BruteForce extends AbstractSolution {
      * 
      * @param tsp 
      */
-    public BruteForce(int[][] tsp) {
-        this.tsp = tsp;
-        resultHandler = new TSPResultHandler(tsp);
+    public BruteForce(int[][] graph) {
+        this.graph = graph;
+        resultHandler = new TSPResultHandler();
     }
     
     /**
@@ -28,9 +28,9 @@ public class BruteForce extends AbstractSolution {
      * @return Resulthandler object which contains information about calculated routes. 
      */
     public TSPResultHandler calculateBestRoute() {
-        boolean[] visited = new boolean[tsp.length];
+        boolean[] visited = new boolean[graph.length];
         visited[0] = true;
-        generate(0, visited, 0, 0, new int[tsp.length]);
+        generate(0, visited, 0, 0, new int[graph.length]);
         return resultHandler;
     }
     
@@ -41,22 +41,22 @@ public class BruteForce extends AbstractSolution {
      * @return Resulthandler object which contains information about calculated routes. 
      */
     public TSPResultHandler calculateBestRouteAndSaveAllRoutes() {
-        boolean[] visited = new boolean[tsp.length];
+        boolean[] visited = new boolean[graph.length];
         visited[0] = true;
-        generateAndStoreAllRoutes(0, visited, 0, 0, new int[tsp.length]);
+        generateAndStoreAllRoutes(0, visited, 0, 0, new int[graph.length]);
         return resultHandler;
     }
     
     private int generate(int lengthSoFar, boolean[] _visited, int currentIndex, int counter, int[] route) {
-        if (counter == tsp.length-1) {
-            return lengthSoFar+tsp[currentIndex][0];
+        if (counter == graph.length-1) {
+            return lengthSoFar+graph[currentIndex][0];
         }
-        for (int i=1;i<tsp.length;i++) {
+        for (int i=1;i<graph.length;i++) {
             if (!_visited[i]) {
                 boolean[] visited2 = luoKopio(_visited);
                 visited2[i] = true;
                 route[counter] = i;
-                int newp = generate(lengthSoFar+tsp[currentIndex][i],visited2,i,counter+1,route);
+                int newp = generate(lengthSoFar+graph[currentIndex][i],visited2,i,counter+1,route);
                 if (newp < resultHandler.getMinimumRouteLength()) {
                     int[] kopioRoute = luoKopio(route);
                     resultHandler.setMinimumRouteLength(newp);
@@ -68,21 +68,21 @@ public class BruteForce extends AbstractSolution {
     }
     
     private int generateAndStoreAllRoutes(int lengthSoFar, boolean[] _visited, int currentIndex, int counter, int[] route) {
-        if (counter == tsp.length-1) {
-            return lengthSoFar+tsp[currentIndex][0];
+        if (counter == graph.length-1) {
+            return lengthSoFar+graph[currentIndex][0];
         }
-        for (int i=1;i<tsp.length;i++) {
+        for (int i=1;i<graph.length;i++) {
             if (!_visited[i]) {
                 boolean[] visited2 = luoKopio(_visited);
                 visited2[i] = true;
                 route[counter] = i;
-                int newp = generateAndStoreAllRoutes(lengthSoFar+tsp[currentIndex][i],visited2,i,counter+1,route);
+                int newp = generateAndStoreAllRoutes(lengthSoFar+graph[currentIndex][i],visited2,i,counter+1,route);
                 int[] kopioRoute = luoKopio(route);
                 if (newp < resultHandler.getMinimumRouteLength()) {
                     resultHandler.setMinimumRouteLength(newp);
                     resultHandler.setBestRoute(kopioRoute);
                 }
-                if (counter==tsp.length-2) resultHandler.addNewRoute(kopioRoute, newp);
+                if (counter==graph.length-2) resultHandler.addNewRoute(kopioRoute, newp);
             }
         }
         return resultHandler.getMinimumRouteLength();

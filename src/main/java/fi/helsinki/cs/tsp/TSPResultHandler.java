@@ -4,6 +4,7 @@
  */
 package fi.helsinki.cs.tsp;
 
+import fi.helsinki.cs.tsp.utils.TSPIntStack;
 import fi.helsinki.cs.tsp.utils.TSPStack;
 
 /**
@@ -16,20 +17,17 @@ public class TSPResultHandler {
     
     private int minimumRouteLength = Integer.MAX_VALUE;
     private int[] bestRoute;
-    private int[][] graph;
+    private TSPIntStack bestRouteStack;
     private TSPStack routes;
     
+    
     /**
-     * Basic constructor.
+     * Basic empty constructor.
      * 
-     * @param graph Distance matrix from which calculations are done.
      */
-    public TSPResultHandler(int[][] graph) {
-        this.graph = graph;
-        bestRoute = new int[graph.length];
+    public TSPResultHandler() {
         routes = new TSPStack();
     }
-    
     /**
      * Adds new route to this handler.
      * 
@@ -88,10 +86,20 @@ public class TSPResultHandler {
     }
 
     /**
-     * @param bestRoute the bestRoute to set
+     * @param bestRoute the bestRoute to set as int array
      */
     public void setBestRoute(int[] bestRoute) {
         this.bestRoute = bestRoute;
     }
     
+    /**
+     * @param bestRoute the bestRoute to set as stack
+     */
+    public void setBestRoute(TSPIntStack bestRouteStack) {
+        this.bestRouteStack = bestRouteStack;
+        int i = 0;
+        while (!bestRouteStack.empty()) {
+            bestRoute[i++] = bestRouteStack.pop();
+        }
+    }
 }

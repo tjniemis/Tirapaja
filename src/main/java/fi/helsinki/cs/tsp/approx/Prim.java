@@ -52,7 +52,7 @@ public class Prim {
                     edges.add(ge);
                 }
             }
-        }        
+        }
         GraphEdge ge2 = (GraphEdge)edges.first();
         while(nodes[ge2.getEndIndex()]==-1) {
             ge2 = (GraphEdge)edges.higher(ge2);
@@ -60,6 +60,7 @@ public class Prim {
         //System.out.println(ge2);
         edges.remove(ge2);
         treeGraph[ge2.getStartIndex()][ge2.getEndIndex()] = ge2.getDistance();
+        treeGraph[ge2.getEndIndex()][ge2.getStartIndex()] = ge2.getDistance();
         execute(ge2.getEndIndex(), counter+1);
     }
 

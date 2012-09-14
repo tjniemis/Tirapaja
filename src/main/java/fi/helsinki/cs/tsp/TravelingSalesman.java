@@ -6,6 +6,7 @@ package fi.helsinki.cs.tsp;
 
 import fi.helsinki.cs.tsp.approx.Prim;
 import fi.helsinki.cs.tsp.utils.DepthFirstSearch;
+import fi.helsinki.cs.tsp.utils.TSPUtils;
 
 /**
  * Traveling Salesman class. 
@@ -24,7 +25,7 @@ public class TravelingSalesman {
     public TravelingSalesman(int locations) {
         MatrixFactory factory = new MatrixFactory();
         tsp = factory.createMatrix(locations);
-        //factory.printMatrix(tsp);
+        factory.printMatrix(tsp);
     }
     
     /**
@@ -64,16 +65,9 @@ public class TravelingSalesman {
         Prim prim = new Prim(tsp);
         prim.createMinimumSpanningTree();
         int[][] minTree = prim.getTreeGraph();
+        //TSPUtils.printMatrix(minTree);
         DepthFirstSearch dfs = new DepthFirstSearch(minTree);
-        int[] nodes = dfs.visitAll();
-        int distance = 0;
-        for (int i=0; i<nodes.length-2; i++) {
-            distance += tsp[i][i+1];
-        }
-        distance += tsp[nodes.length-2][0];
-        TSPResultHandler trh = new TSPResultHandler(tsp);
-        trh.setBestRoute(nodes);
-        trh.setMinimumRouteLength(distance);
+        TSPResultHandler trh = dfs.visitAll(tsp);
         return trh;
     }
     
@@ -81,6 +75,7 @@ public class TravelingSalesman {
         Prim prim = new Prim(tsp);
         prim.createMinimumSpanningTree();
         int[][] minTree = prim.getTreeGraph();
+        //TSPUtils.printMatrix(minTree);
         DepthFirstSearch dfs = new DepthFirstSearch(minTree);
         TSPResultHandler trh = dfs.visitAll2(prim.getNodesInTreeAsStack(), tsp);
         return trh;
