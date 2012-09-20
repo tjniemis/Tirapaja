@@ -4,8 +4,11 @@
  */
 package fi.helsinki.cs.tsp.utils;
 
+import java.util.Stack;
+
 /**
- *
+ * Basic stack implementation for int variables
+ * 
  * @author tesuomin
  */
 public class TSPIntStack {

@@ -5,7 +5,8 @@
 package fi.helsinki.cs.tsp.utils;
 
 /**
- *
+ * Class for graph edges. Stores starting index and ending index in distance matrix and distance between them. 
+ * 
  * @author tesuomin
  */
 public class GraphEdge {

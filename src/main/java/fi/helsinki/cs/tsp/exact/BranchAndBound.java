@@ -2,7 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.helsinki.cs.tsp;
+package fi.helsinki.cs.tsp.exact;
+
+import fi.helsinki.cs.tsp.AbstractSolution;
+import fi.helsinki.cs.tsp.TSPResultHandler;
 
 /**
  * Implementation class for Traveling Salesman's problem. This class solves the problem using 
@@ -31,13 +34,15 @@ public class BranchAndBound extends AbstractSolution{
     public TSPResultHandler calculateBestRoute() {
         boolean[] visited = new boolean[graph.length];
         visited[0] = true;
-        generate(Integer.MAX_VALUE, 0, visited, 0, 0, new int[graph.length]);
+        int[] route = new int[graph.length+1];
+        route[0] = 0;
+        generate(Integer.MAX_VALUE, 0, visited, 0, 1, route);
         return resultHandler;
     }
     
-    
+    //Generates route. This method is called recursively
     private int generate(int best, int length, boolean[] _visited, int current, int counter, int[] route) {
-        if (counter == graph.length-1) {
+        if (counter == graph.length) {
             return length+graph[current][0];
         }
         for (int i=0;i<graph.length;i++) {

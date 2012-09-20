@@ -57,7 +57,6 @@ public class TSPResultHandler {
      */
     public String printBestRoute() {
         String s = "";
-        if (bestRoute[0] != 0) s = "0:";
         for (int i=0; i<getBestRoute().length; i++) {
             s += getBestRoute()[i]+":";
         }
@@ -86,6 +85,8 @@ public class TSPResultHandler {
     }
 
     /**
+     * Sets best route as int array.
+     * 
      * @param bestRoute the bestRoute to set as int array
      */
     public void setBestRoute(int[] bestRoute) {
@@ -93,6 +94,8 @@ public class TSPResultHandler {
     }
     
     /**
+     * Sets best route as TSPIntStack object.
+     * 
      * @param bestRoute the bestRoute to set as stack
      */
     public void setBestRoute(TSPIntStack bestRouteStack) {

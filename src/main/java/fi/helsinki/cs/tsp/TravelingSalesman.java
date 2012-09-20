@@ -4,12 +4,19 @@
  */
 package fi.helsinki.cs.tsp;
 
+import fi.helsinki.cs.tsp.exact.BranchAndBound;
+import fi.helsinki.cs.tsp.exact.BruteForce;
+import fi.helsinki.cs.tsp.utils.MatrixFactory;
 import fi.helsinki.cs.tsp.approx.Prim;
-import fi.helsinki.cs.tsp.utils.DepthFirstSearch;
-import fi.helsinki.cs.tsp.utils.TSPUtils;
+import fi.helsinki.cs.tsp.approx.DepthFirstSearch;
+import fi.helsinki.cs.tsp.approx.GreedyApproximation;
 
 /**
- * Traveling Salesman class. 
+ * Traveling Salesman class. Gives various solutions to Traveling Salesman problem. Calculcations
+ * are always done from distance matrix which is given as a parameter to constructor. Starting index
+ * is always 0. 
+ * 
+ * Future development: starting index could be something other than 0. 
  * 
  * @author tesuomin
  */
@@ -25,7 +32,16 @@ public class TravelingSalesman {
     public TravelingSalesman(int locations) {
         MatrixFactory factory = new MatrixFactory();
         tsp = factory.createMatrix(locations);
-        factory.printMatrix(tsp);
+        //TSPUtils.printMatrix(tsp);
+    }
+    
+    /**
+     * Intiate Traveling Salesman with predefined distance graph.
+     * 
+     * @param locations Number of random locations to be generated.
+     */
+    public TravelingSalesman(int[][] graph) {
+        this.tsp = graph;
     }
     
     /**
@@ -54,30 +70,53 @@ public class TravelingSalesman {
      * Not to be used in calculations where number of locations is more than 10, otherwise you will get
      * OutOfMemoryError.
      * 
-     * @return Reusulthandler object which has information about calculated routes
+     * @return Resulthandler object which has information about calculated routes
      */
     public TSPResultHandler calculateWithBruteForceAndShowAllRoutes() {
         BruteForce bf = new BruteForce(tsp);
         return bf.calculateBestRouteAndSaveAllRoutes();
     }
     
+    /**
+     * Approximates with standard Prim algorithm. First calculates minimum spanning tree using Prim's algorithm
+     * and then does Depth-First-Search to create circular route. 
+     * 
+     * @return Resulthandler object which has information about calculated routes
+     */
     public TSPResultHandler approximateWithPrim() {
         Prim prim = new Prim(tsp);
         prim.createMinimumSpanningTree();
         int[][] minTree = prim.getTreeGraph();
         //TSPUtils.printMatrix(minTree);
-        DepthFirstSearch dfs = new DepthFirstSearch(minTree);
-        TSPResultHandler trh = dfs.visitAll(tsp);
+        DepthFirstSearch dfs = new DepthFirstSearch(tsp);
+        TSPResultHandler trh = dfs.visitAll(minTree);
         return trh;
     }
     
-    public TSPResultHandler approximateWithPrim2() {
+    /**
+     * Approximates with alternative Prim algorithm. First calculates minimum spanning tree using standard Prim's algorithm.
+     * Then goes through edges in order they were added to the tree, thus creating circular route. 
+     * 
+     * @return Resulthandler object which has information about calculated routes
+     */
+    public TSPResultHandler approximateWithAlternativePrim() {
         Prim prim = new Prim(tsp);
         prim.createMinimumSpanningTree();
-        int[][] minTree = prim.getTreeGraph();
         //TSPUtils.printMatrix(minTree);
-        DepthFirstSearch dfs = new DepthFirstSearch(minTree);
-        TSPResultHandler trh = dfs.visitAll2(prim.getNodesInTreeAsStack(), tsp);
+        DepthFirstSearch dfs = new DepthFirstSearch(tsp);
+        TSPResultHandler trh = dfs.visitAll2(prim.getNodesInTreeAsStack());
+        return trh;
+    }
+    
+    /**
+     * Approximates with basic greedy algorithm. Idea here is that when entering vertex, algorithm finds closest vertex
+     * not examined yet and moves there. Finally algorithm returns to beginning. 
+     * 
+     * @return Resulthandler object which has information about calculated routes
+     */
+    public TSPResultHandler approximateWithGreedyAgorithm() {
+        GreedyApproximation ga = new GreedyApproximation(tsp);
+        TSPResultHandler trh = ga.createRoute();
         return trh;
     }
     

@@ -2,7 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.helsinki.cs.tsp;
+package fi.helsinki.cs.tsp.exact;
+
+import fi.helsinki.cs.tsp.AbstractSolution;
+import fi.helsinki.cs.tsp.TSPResultHandler;
 
 /**
  * Implementation class for Traveling Salesman's problem. This class solves the problem using 
@@ -47,6 +50,7 @@ public class BruteForce extends AbstractSolution {
         return resultHandler;
     }
     
+    //Generates route. This method is called recursively
     private int generate(int lengthSoFar, boolean[] _visited, int currentIndex, int counter, int[] route) {
         if (counter == graph.length-1) {
             return lengthSoFar+graph[currentIndex][0];
@@ -67,6 +71,7 @@ public class BruteForce extends AbstractSolution {
         return resultHandler.getMinimumRouteLength();
     }
     
+    //Generates route. This method is called recursively and it stores every single route.
     private int generateAndStoreAllRoutes(int lengthSoFar, boolean[] _visited, int currentIndex, int counter, int[] route) {
         if (counter == graph.length-1) {
             return lengthSoFar+graph[currentIndex][0];

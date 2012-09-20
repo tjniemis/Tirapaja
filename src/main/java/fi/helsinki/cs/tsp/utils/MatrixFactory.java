@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.helsinki.cs.tsp;
+package fi.helsinki.cs.tsp.utils;
 
 import java.util.Random;
 
@@ -49,25 +49,80 @@ public class MatrixFactory {
         return graph;
     }
     
+    /**
+     * Method creates predefined 4 by 4 matrix to be used in correctness tests
+     * 
+     * @return Predefined 4 by 4 distance matrix
+     */
+    public int[][] createPredefined4by4Matrix() {
+        int[][] graph = new int[4][4];
+
+        graph[0][1] = 30;
+        graph[1][0] = 30;
+        
+        graph[0][2] = 21;
+        graph[2][0] = 21;
+        
+        graph[0][3] = 10;
+        graph[3][0] = 10;
+        
+        graph[1][2] = 30;
+        graph[2][1] = 30;
+        
+        graph[1][3] = 10;
+        graph[3][1] = 10;
+        
+        graph[2][3] = 20;
+        graph[3][2] = 20;
+        return graph;
+    }
+    
+    /**
+     * Method creates predefined 4 by 4 matrix to be used in correctness tests
+     * 
+     * @return Predefined 4 by 4 distance matrix
+     */
+    public int[][] createPredefined5by5Matrix() {
+        int[][] graph = new int[5][5];
+
+        graph[0][1] = 26;
+        graph[1][0] = 26;
+        
+        graph[0][2] = 20;
+        graph[2][0] = 20;
+        
+        graph[0][3] = 15;
+        graph[3][0] = 15;
+        
+        graph[0][4] = 10;
+        graph[4][0] = 10;
+        
+        graph[1][2] = 17;
+        graph[2][1] = 17;
+        
+        graph[1][3] = 25;
+        graph[3][1] = 25;
+        
+        graph[1][4] = 11;
+        graph[4][1] = 11;
+        
+        graph[2][3] = 12;
+        graph[3][2] = 12;
+        
+        graph[2][4] = 20;
+        graph[4][2] = 20;
+        
+        graph[3][4] = 16;
+        graph[4][3] = 16;
+        return graph;
+    }
+    
     //Adds 0 to an entry where indexes are same (ie. [1][1], [2][2], [3][3],...)
     private int[][] addMinValues(int[][] tsp, int length) {
         for (int i=0; i<length; i++) {
             tsp[i][i] = 0;
         }
         return tsp;
-    }
-    
-    /**
-     * Prints this n*n matrix
-     * 
-     * @param matrix Matrix to be printed.
-     */
-    public void printMatrix(int[][] matrix) {
-        for (int i=0; i<matrix.length; i++) {
-            for (int j=0; j<matrix.length; j++) {
-                System.out.println("int["+i+"]["+j+"]="+matrix[i][j]);
-            }
-        }
     }
     
 }

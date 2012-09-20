@@ -7,11 +7,21 @@ package fi.helsinki.cs.tsp.utils;
 import java.util.Comparator;
 
 /**
- *
+ * Comparator for Graph edges
+ * 
  * @author tesuomin
  */
 public class GraphEdgeComparator implements Comparator {
 
+    /**
+     * Compares 2 graph edges using distance.
+     * 
+     * @param o1 First parameter
+     * @param o2 Second parameter
+     * 
+     * @return If first parameter has shorter distance, returns -1, if second is shorter returns 1. 
+     * If distances are same, returns 0.
+     */
     @Override
     public int compare(Object o1, Object o2) {
         //palauttaa negatiivisin, jos this on pienempi

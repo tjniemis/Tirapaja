@@ -2,44 +2,42 @@ package fi.helsinki.cs.tsp.utils;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 /**
- * Unit test for simple App.
+ * Unit test for TSPIntStack
  */
-public class TSPStackTest {
+public class TSPIntStackTest {
     
     @Test
     public void testStack() {
-        TSPStack stack = new TSPStack();
-        stack.push(new Integer(1));
-        stack.push(new Integer(2));
-        stack.push(new Integer(3));
-        Integer result = (Integer)stack.pop();
-        assertEquals(result.intValue(), 3);
+        TSPIntStack stack = new TSPIntStack();
+        stack.push(1);
+        stack.push(2);
+        stack.push(3);
+        int result = stack.pop();
+        assertEquals(result, 3);
     }
     
     @Test
     public void testOverflow() {
-        TSPStack stack = new TSPStack();
+        TSPIntStack stack = new TSPIntStack();
         for (int i=0; i<1001; i++) {
-            Integer ii = new Integer(i);
-            stack.push(ii);
+            stack.push(i);
         }
-        Integer result_1 = (Integer)stack.pop();
-        assertEquals(result_1.intValue(), 1000);
-        Integer result_2 = (Integer)stack.pop();
-        assertEquals(result_2.intValue(), 999);
+        int result_1 = stack.pop();
+        assertEquals(result_1, 1000);
+        int result_2 = stack.pop();
+        assertEquals(result_2, 999);
     }
     
     @Test
     public void testEmpty() {
-        TSPStack stack = new TSPStack();
-        stack.push(new Integer(1));
-        Integer result_1 = (Integer)stack.pop();
-        assertEquals(result_1.intValue(), 1);
-        assertNull(stack.pop());
+        TSPIntStack stack = new TSPIntStack();
+        stack.push(1);
+        int result_1 = stack.pop();
+        assertEquals(result_1, 1);
+        assertEquals(stack.pop(), -1);
     }
 }

@@ -1,23 +1,22 @@
-package fi.helsinki.cs.tsp;
+package fi.helsinki.cs.tsp.utils;
 
+import fi.helsinki.cs.tsp.utils.MatrixFactory;
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
- * Unit test for simple App.
+ * Unit test for MatrixFactory
  */
 public class MatrixFactoryTest {
     
+    /**
+     * Test basic create
+     */
     @Test
     public void testCreate() {
         MatrixFactory factory = new MatrixFactory();
         int[][] tsp = factory.createMatrix(10);
-        for (int i=0; i<tsp.length; i++) {
-            for (int j=0; j<tsp.length; j++) {
-                //System.out.println("int["+i+"]["+j+"]="+tsp[i][j]);
-            }
-        }
-        assertTrue(true);
+        assertEquals(tsp.length, 10);
     }
 }

@@ -5,7 +5,8 @@
 package fi.helsinki.cs.tsp.utils;
 
 /**
- *
+ * Generic class for often-used util methods. 
+ * 
  * @author tesuomin
  */
 public abstract class TSPUtils {
