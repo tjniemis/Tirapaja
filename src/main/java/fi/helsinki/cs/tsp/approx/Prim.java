@@ -5,10 +5,8 @@
 package fi.helsinki.cs.tsp.approx;
 
 import fi.helsinki.cs.tsp.utils.GraphEdge;
-import fi.helsinki.cs.tsp.utils.GraphEdgeComparator;
+import fi.helsinki.cs.tsp.utils.TSPHeap;
 import fi.helsinki.cs.tsp.utils.TSPIntStack;
-import fi.helsinki.cs.tsp.utils.TSPStack;
-import java.util.TreeSet;
 
 /**
  * Class which creates minimum spanning tree from given n*n distance matrix 
@@ -21,7 +19,7 @@ public class Prim {
     private int[] nodesInTree; //Solmut, jotka jo ovat puussa
     private int[] nodes; //Kaikki solmut alussa
     private int[][] treeGraph; //Virittävä puu
-    private TreeSet edges;
+    private TSPHeap edges;
     
     public Prim(int[][] graph) {
         this.graph = graph;
@@ -33,7 +31,7 @@ public class Prim {
             nodes[i] = i;
         }
         nodes[0] = -1;
-        edges = new TreeSet(new GraphEdgeComparator());
+        edges = new TSPHeap();
     }
     
     public void createMinimumSpanningTree() {
@@ -49,16 +47,14 @@ public class Prim {
                 int distance = getGraph()[index][i];
                 if (distance>0) {
                     GraphEdge ge = new GraphEdge(index, i, distance);
-                    edges.add(ge);
+                    edges.heapInsert(ge);                    
                 }
             }
         }
-        GraphEdge ge2 = (GraphEdge)edges.first();
+        GraphEdge ge2 = edges.heapDelMin();
         while(nodes[ge2.getEndIndex()]==-1) {
-            ge2 = (GraphEdge)edges.higher(ge2);
+            ge2 = edges.heapDelMin();
         }            
-        //System.out.println(ge2);
-        edges.remove(ge2);
         treeGraph[ge2.getStartIndex()][ge2.getEndIndex()] = ge2.getDistance();
         treeGraph[ge2.getEndIndex()][ge2.getStartIndex()] = ge2.getDistance();
         execute(ge2.getEndIndex(), counter+1);
@@ -105,18 +101,4 @@ public class Prim {
         return treeGraph;
     }
 
-    /**
-     * @return the edges
-     */
-    public TreeSet getEdges() {
-        return edges;
-    }
-
-    /**
-     * @param edges the edges to set
-     */
-    public void setEdges(TreeSet edges) {
-        this.edges = edges;
-    }
-    
 }

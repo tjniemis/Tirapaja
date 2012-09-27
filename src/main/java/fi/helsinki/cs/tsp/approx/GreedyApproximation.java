@@ -19,12 +19,23 @@ public class GreedyApproximation {
     private int[] route;
     private boolean[] visited;
     
+    /**
+     * Initializes this Greedy Approximation.
+     * 
+     * @param fullGraph Full distance matrix
+     */
     public GreedyApproximation(int[][] fullGraph) {
         this.fullGraph = fullGraph;
         route = new int[fullGraph.length+1]; //one more to close the route
         visited = new boolean[fullGraph.length];
     }
     
+    
+    /**
+     * Creates minimum route using Greedy algorithm
+     * 
+     * @return ResultHandler object containing minimum route and it's distance
+     */
     public TSPResultHandler createRoute() {
         TSPResultHandler trh = new TSPResultHandler();
         route[0] = 0;
@@ -39,6 +50,7 @@ public class GreedyApproximation {
         return trh;
     }
     
+    //Called recursively when generating route
     private void generate(int currentIndex, int counter) {
         if (counter==route.length-1) return; 
         int min = Integer.MAX_VALUE;
