@@ -32,7 +32,6 @@ public class TravelingSalesman {
     public TravelingSalesman(int locations) {
         MatrixFactory factory = new MatrixFactory();
         tsp = factory.createMatrix(locations);
-        //TSPUtils.printMatrix(tsp);
     }
     
     /**
@@ -87,7 +86,6 @@ public class TravelingSalesman {
         Prim prim = new Prim(tsp);
         prim.createMinimumSpanningTree();
         int[][] minTree = prim.getTreeGraph();
-        //TSPUtils.printMatrix(minTree);
         DepthFirstSearch dfs = new DepthFirstSearch(tsp);
         TSPResultHandler trh = dfs.visitAll(minTree);
         return trh;

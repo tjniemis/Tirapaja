@@ -5,6 +5,7 @@
 package fi.helsinki.cs.tsp.utils;
 
 import java.util.Random;
+import java.util.TreeSet;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -37,22 +38,22 @@ public class TSPHeapTest {
     
     
     /**
-     * Tests HeapDelMin -method
+     * Tests correctness of HeapDelMin -method against Java's standard TreeSet.
      * 
      */
     @Test
     public void testHeapDelMin() {
         Random randomGenerator = new Random();
         TSPHeap heap = new TSPHeap();
+        TreeSet ts = new TreeSet();
         for (int i= 0; i < 12; i++) {
             int randomInt = randomGenerator.nextInt(100);
             GraphEdge edge = new GraphEdge(0, 1, randomInt);
-            System.out.println("inserted "+randomInt);
             heap.heapInsert(edge);
+            ts.add(randomInt);
         }
-        for (int i=0; i < 10; i++) {
-            System.out.println("heap("+i+"): "+heap.heapDelMin().getDistance());
+        for (int i=0; i < 10; i++) {            
+            assertEquals(ts.pollFirst(), heap.heapDelMin().getDistance());
         }
-        assertTrue(true);
     }
 }

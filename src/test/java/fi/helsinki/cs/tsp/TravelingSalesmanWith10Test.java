@@ -4,7 +4,6 @@
  */
 package fi.helsinki.cs.tsp;
 
-import fi.helsinki.cs.tsp.utils.TSPStack;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
