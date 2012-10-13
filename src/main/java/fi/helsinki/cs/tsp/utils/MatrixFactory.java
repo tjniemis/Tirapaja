@@ -13,16 +13,16 @@ import java.util.Random;
  */
 public class MatrixFactory {
     
-    private static int[] points = new int[1000];
+    private static int[] points = new int[10000];
     
     public MatrixFactory() {
         fillPoints();
     }
     
-    //Fills an array with 1000 random numbers between 1-100. This array is used to construct random graphs
+    //Fills an array with 10000 random numbers between 1-100. This array is used to construct random graphs
     private void fillPoints() {
         Random randomGenerator = new Random();
-        for (int i= 0; i < 1000; ++i){
+        for (int i= 0; i < 10000; ++i){
             int randomInt = randomGenerator.nextInt(100);
             points[i] = randomInt+1;
         }

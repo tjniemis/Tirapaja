@@ -22,6 +22,8 @@ public class GraphEdge {
     }
 
     /**
+     * Returns the index where this graph edge starts
+     * 
      * @return the startIndex
      */
     public int getStartIndex() {
@@ -29,6 +31,8 @@ public class GraphEdge {
     }
 
     /**
+     * Returns the index where this graph edge ends
+     * 
      * @return the endIndex
      */
     public int getEndIndex() {
@@ -36,17 +40,13 @@ public class GraphEdge {
     }
 
     /**
+     * Returns distance of this graph edge
+     * 
      * @return the distance
      */
     public int getDistance() {
         return distance;
     }
-
-    
-    
-    public String toString() {
-        return "start: "+this.startIndex+", end: "+this.endIndex+", distance: "+this.distance;               
-    }   
     
     
 }

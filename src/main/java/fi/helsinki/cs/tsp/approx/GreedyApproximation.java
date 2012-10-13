@@ -5,6 +5,7 @@
 package fi.helsinki.cs.tsp.approx;
 
 import fi.helsinki.cs.tsp.TSPResultHandler;
+import fi.helsinki.cs.tsp.utils.TSPUtils;
 
 /**
  * Greedy approximation. Idea here is that when entering vertex, algorithm finds closest vertex
@@ -67,7 +68,7 @@ public class GreedyApproximation {
         //Now we know what minimum distance and new endindex is
         visited[endIndex] = true;
         route[counter] = endIndex;
-        distance += min;
+        distance += min;    
         generate(endIndex, counter+1);
     } 
 }

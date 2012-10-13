@@ -23,43 +23,12 @@ public class TravelingSalesmanWith30Test {
         ts = new TravelingSalesman(30);
     }
     
-    /*
-     
-    Branch and Bound will cannot handle this data anymore!
-    * 
-    @Test
-    public void testBranchAndBound() {
-        long start = System.currentTimeMillis();
-        TSPResultHandler trh = ts.calculateWithBranchAndBound();
-        long end = System.currentTimeMillis();
-        System.out.println("Branch-and-bound duration: "+(end-start));
-        System.out.println("BranchAndBound Best route length: "+trh.getMinimumRouteLength());
-        System.out.println("BranchAndBound Best route: "+trh.printBestRoute());
-        System.out.println("");
-        assertTrue(true);
-   }
-    
-    
-     Brute Force cannot be used here, takes too long and results in OutOfMemory!
-     
-     * @Test
-    public void testBruteForce() {
-        long start = System.currentTimeMillis();
-        TSPResultHandler trh = ts.calculateWithBruteForce();
-        long end = System.currentTimeMillis();
-        System.out.println("BruteForce duration: "+(end-start));
-        System.out.println("BruteForce Best route length: "+trh.getMinimumRouteLength());
-        System.out.println("BruteForce Best route: "+trh.printBestRoute());
-        System.out.println("");
-        assertTrue(true);
-    }*/
-    
     @Test
     public void testGreedy() {
-        long start = System.currentTimeMillis();
+        long start = System.nanoTime();
         TSPResultHandler trh = ts.approximateWithGreedyAgorithm();
-        long end = System.currentTimeMillis();
-        System.out.println("Greedy(30) duration: "+(end-start));
+        long end = System.nanoTime();
+        System.out.println("Greedy(30) duration: "+((end-start)/1000000.0)+"ms");
         System.out.println("Greedy(30) Best route length: "+trh.getMinimumRouteLength());
         System.out.println("Greedy(30) Best route: "+trh.printBestRoute());
         System.out.println("");
@@ -68,10 +37,10 @@ public class TravelingSalesmanWith30Test {
     
     @Test
     public void testPrim1() {
-        long start = System.currentTimeMillis();
+        long start = System.nanoTime();
         TSPResultHandler trh = ts.approximateWithPrim();
-        long end = System.currentTimeMillis();
-        System.out.println("Standard Prim duration: "+(end-start));
+        long end = System.nanoTime();
+        System.out.println("Standard Prim duration: "+((end-start)/1000000.0)+"ms");
         System.out.println("Standard Prim Best route length: "+trh.getMinimumRouteLength());
         System.out.println("Standard Prim Best route: "+trh.printBestRoute());
         System.out.println("");
@@ -80,10 +49,10 @@ public class TravelingSalesmanWith30Test {
     
     @Test
     public void testPrim2() {
-        long start = System.currentTimeMillis();
+        long start = System.nanoTime();
         TSPResultHandler trh = ts.approximateWithAlternativePrim();
-        long end = System.currentTimeMillis();
-        System.out.println("Alternative Prim duration: "+(end-start));
+        long end = System.nanoTime();
+        System.out.println("Alternative Prim duration: "+((end-start)/1000000.0)+"ms");
         System.out.println("Alternative Prim Best route length: "+trh.getMinimumRouteLength());
         System.out.println("Alternative Prim Best route: "+trh.printBestRoute());
         System.out.println("");
@@ -105,17 +74,17 @@ public class TravelingSalesmanWith30Test {
     public void testBranchAndBound_And_BruteForce12() {
         TravelingSalesman ts = new TravelingSalesman(12);
         
-        long start = System.currentTimeMillis();
+        long start = System.nanoTime();
         TSPResultHandler trh = ts.calculateWithBranchAndBound();
-        long end = System.currentTimeMillis();
-        System.out.println("Branch-and-bound duration: "+(end-start));
+        long end = System.nanoTime();
+        System.out.println("Branch-and-bound duration: "+((end-start)/1000000.0)+"ms");
         System.out.println("BranchAndBound Best route length: "+trh.getMinimumRouteLength());
         System.out.println("BranchAndBound Best route: "+trh.printBestRoute());
         
-        start = System.currentTimeMillis();
+        start = System.nanoTime();
         trh = ts.calculateWithBruteForce();
-        end = System.currentTimeMillis();
-        System.out.println("BruteForce duration: "+(end-start));
+        end = System.nanoTime();
+        System.out.println("BruteForce duration: "+((end-start)/1000000.0)+"ms");
         System.out.println("BruteForce Best route length: "+trh.getMinimumRouteLength());
         System.out.println("BruteForce Best route: "+trh.printBestRoute());
         assertTrue(true);
@@ -125,10 +94,10 @@ public class TravelingSalesmanWith30Test {
     public void testBranchAndBound_And_BruteForce18() {
         TravelingSalesman ts = new TravelingSalesman(18);
         
-        long start = System.currentTimeMillis();
+        long start = System.nanoTime();
         TSPResultHandler trh = ts.calculateWithBranchAndBound();
-        long end = System.currentTimeMillis();
-        System.out.println("Branch-and-bound duration: "+(end-start));
+        long end = System.nanoTime();
+        System.out.println("Branch-and-bound duration: "+((end-start)/1000000.0)+"ms");
         System.out.println("BranchAndBound Best route length: "+trh.getMinimumRouteLength());
         System.out.println("BranchAndBound Best route: "+trh.printBestRoute());
     }*/
